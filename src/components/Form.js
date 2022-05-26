@@ -1,40 +1,60 @@
 import { useState } from "react"
 
-const Form = ( { onDeposit } ) => {
-    const [ deposit, setDeposit ] = useState(0)
+const Form = ( { onDeposit, currentBalance } ) => {
+    const [ amount, setAmount ] = useState(0)
 
     const handleChange = e => {
         const { value } = e.target
-        const newDeposit = parseFloat(value)
-        setDeposit(newDeposit)
+        const newAmount = parseFloat(value)
+        setAmount(newAmount)
     }
 
-    const handleSubmit = e => {
-        e.preventDefault()
-        onDeposit(deposit)
-        setDeposit(0)
+    const handleDeposit = () => {
+        if(amount <= 0){
+            alert("Deposit amount is invalid")
+            setAmount(0)
+            return
+        }
+        onDeposit(amount)
+        setAmount(0)
+    }
+
+    const handleCashBack= () => {
+        if(amount <= 0){
+            alert("Cash Back amount is invalid")
+            setAmount(0)
+            return
+        }
+        if(amount > currentBalance){
+            alert("Not enough balance to execute transaction")
+            setAmount(0)
+            return
+        }
+        onDeposit(-amount)
+        setAmount(0)
     }
 
     return (
         <>
             <div className="form-wrapper">
-                <form className="custom-form" onSubmit={e => handleSubmit(e)}>
-                    <span className="form-title">Deposit</span>
+                <div className="custom-form">
+                    <span className="form-title">Welcome User!</span>
                     <section className="input-wrapper">
-                        <label className="custom-label" htmlFor="Deposit">Make a Deposit</label>
+                        <label className="custom-label" htmlFor="Deposit">Amount</label>
                         <input 
                             className="custom-input"
                             type='number'
                             name="deposit"
-                            value={deposit}
+                            value={amount}
                             onChange={e => handleChange(e)}
                         />
                     </section>
                    
                    <section className="btn-wrapper">
-                       <button className="custom-btn">Submit</button>
+                       <button className="custom-btn btn-green" onClick={handleDeposit}>Deposit</button>
+                       <button className="custom-btn btn-red" onClick={handleCashBack}>Cash Back</button>
                    </section>
-                </form>
+                </div>
             </div>
         </>
     )

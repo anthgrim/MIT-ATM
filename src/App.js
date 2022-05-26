@@ -14,7 +14,7 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <Form onDeposit={handleDeposit}/>
+      <Form onDeposit={handleDeposit} currentBalance={balance}/>
       <Balance balance={balance}/>
     </div>
   );
