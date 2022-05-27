@@ -1,21 +1,29 @@
 import { useState } from 'react';
 import Navbar from './components/Navbar';
 import Form from './components/Form'
-import './App.css';
 import Balance from './components/Balance';
+import Transactions from './components/Transactions';
+import './App.css';
+
 
 function App() {
   const [ balance, setBalance ] = useState(0)
+  const [ transactionsHistory, setTransactionsHistory ] = useState([])
 
-  const handleDeposit = (deposit) => {
+  const handleTransaction = (deposit) => {
     setBalance(prevBalance => prevBalance + deposit)
+  }
+
+  const handleTransactionHistory = (newTransactionHistory) => {
+    setTransactionsHistory(prevTransactionHistory => ([...prevTransactionHistory, newTransactionHistory]))
   }
 
   return (
     <div className="App">
       <Navbar />
-      <Form onDeposit={handleDeposit} currentBalance={balance}/>
+      <Form onTransaction={handleTransaction} handleTransactionHistory={handleTransactionHistory} currentBalance={balance}/>
       <Balance balance={balance}/>
+      <Transactions history={transactionsHistory}/>
     </div>
   );
 }

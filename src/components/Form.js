@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-const Form = ( { onDeposit, currentBalance } ) => {
+const Form = ( { onTransaction, handleTransactionHistory, currentBalance } ) => {
     const [ amount, setAmount ] = useState(0)
 
     const handleChange = e => {
@@ -15,7 +15,18 @@ const Form = ( { onDeposit, currentBalance } ) => {
             setAmount(0)
             return
         }
-        onDeposit(amount)
+
+        //Create Transaction History
+        const today = new Date()
+
+        const newTransactionHistory = {
+            date: `${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear()}`,
+            type: "Deposit",
+            amount: amount
+        }
+
+        onTransaction(amount)
+        handleTransactionHistory(newTransactionHistory)
         setAmount(0)
     }
 
@@ -30,7 +41,19 @@ const Form = ( { onDeposit, currentBalance } ) => {
             setAmount(0)
             return
         }
-        onDeposit(-amount)
+
+        //Create Transaction History
+        const today = new Date()
+
+        const newTransactionHistory = {
+            date: `${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear()}`,
+            type: "Cash Back",
+            amount: amount
+        }
+
+        onTransaction(-amount)
+        handleTransactionHistory(newTransactionHistory)
+
         setAmount(0)
     }
 
