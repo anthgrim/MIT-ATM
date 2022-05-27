@@ -96,3 +96,32 @@ body{
   color: #006d77;
   font-size: 50px;
 }
+
+.list-wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.list{
+  margin: 0;
+  padding: 0;
+}
+
+.list-item{
+  border: none;
+  border-radius: 3px;
+  margin: 5px;
+  padding: 5px 20px 5px 5px;
+  background-color: white;
+  list-style: none;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.1s ease-in-out;
+}
+
+.list-item:hover{
+  background-color: #006d77;
+  color: white;
+  transform: scale(1.05);
+}

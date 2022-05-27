@@ -1,8 +1,10 @@
+import Transaction from "./Transaction"
+
 const Transactions = ({ history }) => {
-    const transactionList = history.map((transaction) => {
+    const transactionList = history.map((transaction, index) => {
         return(
             <>
-            {transaction.date} - {transaction.type} - ${transaction.amount}
+                <Transaction data={transaction} key={index}/>
             </>
         )
     })
@@ -10,6 +12,12 @@ const Transactions = ({ history }) => {
     return(
         <>
             <h5>Transaction History</h5>
+            <div className="list-wrapper">
+                <ul className="list">
+                    {transactionList}
+                </ul>
+            </div>
+            
         </>
     )
 }
